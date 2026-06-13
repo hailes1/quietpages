@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div>
+      <div class="header-subtitle" :class="titleClass">DAGMAWE A. HAILESLASSIE · SOFTWARE ENGINEER · CHICAGO</div>
+      <h1 class="main-title" :class="titleClass">Building for how people actually think.</h1>
+    </div>
     <div class="intro">
       <cv-breadcrumb :class="breadcrumbClass">
         The Quiet Pages is a digital sketchbook: a space for experimenting with web components,
@@ -127,6 +131,9 @@ export default {
     breadcrumbClass() {
       return this.isSwitchOn ? 'home-page-text active' : 'home-page-text'
     },
+    titleClass() {
+      return this.isSwitchOn ? 'active' : ''
+    },
   },
   methods: {
     onRemove() {
@@ -149,9 +156,56 @@ export default {
   position: relative;
 }
 
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-top: 80px;
+  padding-bottom: 60px;
+  box-sizing: border-box;
+  z-index: 5;
+}
+
+.header-subtitle {
+  font-family:
+    'IBM Plex Mono', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier', 'Monospace';
+  font-size: 0.75rem;
+  position: sticky;
+  font-weight: 400;
+  padding-top: 80px;
+  letter-spacing: 1.5px;
+  color: #d3d3d3;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 0;
+
+  &.active {
+    color: #333333;
+  }
+}
+
+.main-title {
+  font-family:
+    'IBM Plex Sans', 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  color: #d3d3d3;
+  margin: 0;
+  margin-bottom: 15px;
+  max-width: 100%;
+
+  &.active {
+    color: #333333;
+  }
+
+}
+
 .intro {
   position: absolute;
-  top: 100px;
+  top: 350px;
   left: 50px;
   width: 30%;
 }
@@ -167,6 +221,14 @@ export default {
 
   &.active {
     color: #000000;
+  }
+
+  @media (prefers-color-scheme: light) {
+    color: #333333;
+
+    &.active {
+      color: #000000;
+    }
   }
 }
 
