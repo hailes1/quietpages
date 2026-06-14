@@ -7,12 +7,18 @@ import ExperimentScrollComponent from '../experiments/ExperimentScroll.vue'
 import ExperimentColorsComponent from '../experiments/ExperimentColors.vue'
 import ExperimentingTransitionsComponent from '../experiments/ExperimentingTransitions.vue'
 import ExperimentTimelineComponent from '../experiments/ExperimentTimeline.vue'
+import TheLabComponent from '../experiments/TheLab.vue'
 
 const routes = [
   {
     path: '/',
     component: HomeComponent,
     props: true, // Pass all route-related properties as props
+  },
+  {
+    path: '/the-lab',
+    component: TheLabComponent,
+    props: true,
   },
   {
     path: '/charting',
