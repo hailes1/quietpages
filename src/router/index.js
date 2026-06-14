@@ -6,6 +6,7 @@ import ExperimentScrollComponent from '../experiments/ExperimentScroll.vue'
 // import ExperimentShadowsComponent from '../experiments/ExperimentShadows.vue'
 import ExperimentColorsComponent from '../experiments/ExperimentColors.vue'
 import ExperimentingTransitionsComponent from '../experiments/ExperimentingTransitions.vue'
+import ExperimentTimelineComponent from '../experiments/ExperimentTimeline.vue'
 
 const routes = [
   {
@@ -42,6 +43,12 @@ const routes = [
     path: '/state-transitions',
     alias: ['/experiment-transitions', '/experimenting-transitions'],
     component: ExperimentingTransitionsComponent,
+    props: true,
+  },
+  {
+    path: '/timeline',
+    alias: ['/about'],
+    component: ExperimentTimelineComponent,
     props: true,
   },
 ]

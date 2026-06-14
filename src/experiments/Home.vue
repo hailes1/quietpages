@@ -67,11 +67,22 @@
       <!-- <cv-tag @remove="onRemove" label="Tone Adjustments and Negative Space" kind="green" /> -->
     </div>
   </div>
+  <div class="timeline-cta">
+    <cv-button
+      @click="navigateTo('/timeline')"
+      aria-label="button story"
+      default="sm"
+      size="sm"
+      class="timeline-button"
+    >
+      006 - ExperimentAbout
+    </cv-button>
+  </div>
   <div class="scroll">
     <cv-breadcrumb :class="breadcrumbClass">
       [Click on the buttons to explore more experiments]
     </cv-breadcrumb>
-    <a
+    <!-- <a
       href="https://open.spotify.com/album/47TQxiorHSmf0UG6MAV8MD"
       target="_blank"
     >
@@ -82,7 +93,7 @@
         :speed="10"
         :paused="false"
       />
-    </a>
+    </a> -->
   </div>
 </template>
 
@@ -278,6 +289,25 @@ export default {
       border-color: darken($color: #dddddd, $amount: 10%);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+  }
+}
+
+.timeline-cta {
+  position: absolute;
+  right: 450px;
+  top: 62%;
+  z-index: 9;
+}
+
+.timeline-button {
+  background-color: #f1c21b;
+  border-color: #f1c21b;
+  color: #161616;
+
+  &:hover {
+    background-color: #d2a106;
+    border-color: #d2a106;
+    color: #161616;
   }
 }
 </style>
