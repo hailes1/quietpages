@@ -2,30 +2,40 @@
   <div class="hero">
     <div class="hero-content">
 
-      <div class="header-subtitle" :class="titleClass">
-        DAGMAWE A. HAILESLASSIE · SOFTWARE ENGINEER · CHICAGO
+      <!-- LEFT -->
+      <div class="hero-left">
+
+        <div class="header-subtitle" :class="titleClass">
+          DAGMAWE A. HAILESLASSIE · SOFTWARE ENGINEER · CHICAGO
+        </div>
+
+        <h1 class="main-title" :class="titleClass">
+          Building for how people actually think.
+        </h1>
+
+        <div class="cta-container">
+          <cv-button
+            @click="navigateTo('/the-lab')"
+            size="extra-large"
+            class="button"
+          >
+            001 - Lab
+          </cv-button>
+
+          <cv-button
+            @click="navigateTo('/timeline')"
+            size="extra-large"
+            class="button"
+          >
+            002 - About Me
+          </cv-button>
+        </div>
+
       </div>
 
-      <h1 class="main-title" :class="titleClass">
-        Building for how people actually think.
-      </h1>
-
-      <div class="cta-container">
-        <cv-button
-          @click="navigateTo('/the-lab')"
-          size="extra-large"
-          class="button"
-        >
-          001 - Lab
-        </cv-button>
-
-        <cv-button
-          @click="navigateTo('/timeline')"
-          size="extra-large"
-          class="button"
-        >
-          002 - About Me
-        </cv-button>
+      <!-- RIGHT -->
+      <div class="hero-right">
+        <HeroSketch :active="isSwitchOn" />
       </div>
 
     </div>
@@ -34,12 +44,14 @@
 
 <script>
 import { CvButton } from '@carbon/vue'
+import HeroSketch from '@/components/HeroSketch.vue'
 
 export default {
   name: 'HomeComponent',
 
   components: {
     CvButton,
+    HeroSketch,
   },
 
   props: {
@@ -69,16 +81,25 @@ export default {
 .hero {
   display: flex;
   justify-content: center;
-  align-items: center;
   min-height: 100vh;
   padding: 0 2rem;
 }
 
+/* GRID LAYOUT */
 .hero-content {
-  max-width: 900px;
-  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(700px, 1.9fr) minmax(320px, 0.8fr);
+  gap: 4rem;
+  align-items: center;
 }
 
+/* LEFT SIDE (IMPORTANT FIX) */
+.hero-left {
+  min-width: 0;              /* prevents overflow weirdness */
+  max-width: 620px;          /* 👈 THIS fixes “cramped text” feeling */
+}
+
+/* typography breathing room */
 .header-subtitle {
   font-family: 'IBM Plex Mono', Menlo, Monaco, monospace;
   font-size: 0.75rem;
@@ -114,11 +135,17 @@ export default {
   display: flex;
   gap: 1.5rem;
   margin-top: 2.5rem;
-
   flex-wrap: wrap;
 }
 
+/* RIGHT SIDE */
+.hero-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
 
+/* BUTTON */
 .button {
   transition: all 0.2s ease;
 
@@ -128,9 +155,30 @@ export default {
   }
 }
 
-/* Carbon internal override */
+/* Carbon override */
 ::v-deep .button .cds--btn {
   letter-spacing: 0.5px;
   padding: 0.75rem 1.25rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .hero-left {
+    max-width: 100%;
+  }
+
+  .hero-right {
+    justify-content: center;
+  }
+
+  .main-title {
+    font-size: 2.5rem;
+    max-width: 100%;
+  }
 }
 </style>
