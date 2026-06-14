@@ -87,6 +87,12 @@
 
     </div>
   </section>
+  <!-- <section>
+    <div>
+      <p>ExperimentTimeline.vue</p>
+
+    </div>
+  </section> -->
 </template>
 
 <script>
@@ -169,24 +175,21 @@ export default {
   --border-color: #c6c6c6;
 }
 
-/* Full-width grid: 4 equal columns */
 .about-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  // grid-template-columns: minmax(400px, 1.9fr) minmax(600px, 1.9fr);
   grid-template-rows: auto auto auto;
   width: 100%;
 }
 
-/* Grid placement */
 .about-section--experience { grid-column: 1 / 3; grid-row: 1; }
-.about-section--education   { grid-column: 3 / 5; grid-row: 1; }
-.about-section--languages      { grid-column: 1 / 3; grid-row: 2; }
+.about-section--education  { grid-column: 3 / 5; grid-row: 1; }
+.about-section--languages   { grid-column: 1 / 3; grid-row: 2; }
 .about-section--tools       { grid-column: 3 / 5; grid-row: 2; }
 .about-section--contact     { grid-column: 1 / 5; grid-row: 3; }
 .about-section--media       { grid-column: 1 / 3; grid-row: 4; }
 .about-section--playlist    { grid-column: 3 / 5; grid-row: 4; }
 
-/* Each section cell */
 .about-section {
   padding: 32px 40px;
   border-bottom: 1px solid var(--border-color);
@@ -201,7 +204,6 @@ export default {
   border-right: none;
 }
 
-/* Section label */
 .about-label {
   margin: 0 0 20px;
   font-family: var(--type-mono);
@@ -213,7 +215,6 @@ export default {
   text-transform: uppercase;
 }
 
-/* Entry rows (experience / education) */
 .about-entry-list {
   display: flex;
   flex-direction: column;
@@ -236,7 +237,6 @@ export default {
   color: var(--text-primary);
 }
 
-/* Generic lists (languages / tools / media) */
 .about-list {
   list-style: none;
   margin: 0;

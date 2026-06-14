@@ -1,9 +1,9 @@
 <template>
-  <div class="hero">
-    <div class="hero-content">
+  <div class="main">
+    <div class="main-content">
 
       <!-- LEFT -->
-      <div class="hero-left">
+      <div class="main-left">
 
         <div class="header-subtitle" :class="titleClass">
           DAGMAWE A. HAILESLASSIE · SOFTWARE ENGINEER · CHICAGO
@@ -32,26 +32,18 @@
         </div>
 
       </div>
-
-      <!-- RIGHT -->
-      <div class="hero-right">
-        <HeroSketch :active="isSwitchOn" />
-      </div>
-
     </div>
   </div>
 </template>
 
 <script>
 import { CvButton } from '@carbon/vue'
-import HeroSketch from '@/components/HeroSketch.vue'
 
 export default {
   name: 'HomeComponent',
 
   components: {
     CvButton,
-    HeroSketch,
   },
 
   props: {
@@ -78,7 +70,7 @@ export default {
 <style scoped lang="scss">
 @import 'carbon-components/scss/globals/scss/styles.scss';
 
-.hero {
+.main {
   display: flex;
   justify-content: center;
   min-height: 100vh;
@@ -86,20 +78,18 @@ export default {
 }
 
 /* GRID LAYOUT */
-.hero-content {
+.main-content {
   display: grid;
   grid-template-columns: minmax(700px, 1.9fr) minmax(320px, 0.8fr);
   gap: 4rem;
   align-items: center;
 }
 
-/* LEFT SIDE (IMPORTANT FIX) */
-.hero-left {
-  min-width: 0;              /* prevents overflow weirdness */
-  max-width: 620px;          /* 👈 THIS fixes “cramped text” feeling */
+.main-left {
+  min-width: 0;
+  max-width: 620px;
 }
 
-/* typography breathing room */
 .header-subtitle {
   font-family: 'IBM Plex Mono', Menlo, Monaco, monospace;
   font-size: 0.75rem;
@@ -138,14 +128,12 @@ export default {
   flex-wrap: wrap;
 }
 
-/* RIGHT SIDE */
-.hero-right {
+.main-right {
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 
-/* BUTTON */
 .button {
   transition: all 0.2s ease;
 
@@ -155,24 +143,22 @@ export default {
   }
 }
 
-/* Carbon override */
 ::v-deep .button .cds--btn {
   letter-spacing: 0.5px;
   padding: 0.75rem 1.25rem;
 }
 
-/* RESPONSIVE */
 @media (max-width: 900px) {
-  .hero-content {
+  .main-content {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
 
-  .hero-left {
+  .main-left {
     max-width: 100%;
   }
 
-  .hero-right {
+  .main-right {
     justify-content: center;
   }
 
