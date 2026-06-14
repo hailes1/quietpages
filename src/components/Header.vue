@@ -18,11 +18,6 @@
       </cv-header-global-action>
     </template>
     </cv-header>
-
-    <cv-side-nav id="side-nav-panel" fixed :expanded="isSideNavOpen" @update:expanded="setSideNavOpen">
-      <cv-side-nav-items>
-      </cv-side-nav-items>
-    </cv-side-nav>
   </div>
 </template>
 
