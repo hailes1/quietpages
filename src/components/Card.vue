@@ -1,69 +1,113 @@
 <template>
-  <div class="card">
-    <div v-if="$slots.thumbnail" class="card-thumbnail">
-      <slot name="thumbnail"></slot>
+  <div
+    class="nav-card"
+    :class="{
+      'dark-text': !isSwitchOn,
+      'light-text': isSwitchOn
+    }"
+    @click="$emit('click')"
+  >
+    <div class="nav-card-image">
+      <slot name="image" />
     </div>
-    <div class="card-body">
-      <div v-if="$slots.title" class="card-title">
-        <slot name="title"></slot>
+
+    <div class="nav-card-content">
+      <div class="nav-card-title">
+        {{ title }}
       </div>
-      <div v-if="$slots.description" class="card-description">
-        <slot name="description"></slot>
+
+      <div class="nav-card-description">
+        {{ description }}
       </div>
-      <slot></slot>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'CardComponent',
-}
+  name: "Card",
+
+  props: {
+    title: String,
+    description: String,
+    isSwitchOn: {
+      type: Boolean,
+      default: false,
+    },
+  },
+};
 </script>
 
 <style scoped>
-.card {
+.nav-card {
+  background: #d3d3d3;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 10px 12px;
   display: flex;
   align-items: center;
-  gap: 16px;
-  background-color: var(--card-background-color, #ffffff);
-  border: 1px solid var(--card-border-color, #e0e0e0);
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: var(--card-box-shadow, none);
+  gap: 12px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.card-thumbnail {
+.nav-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+.nav-card-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.12);
   flex-shrink: 0;
-  width: 84px;
-  height: 84px;
-  border-radius: 6px;
-  overflow: hidden;
 }
 
-.card-thumbnail :deep(img) {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.card-body {
+.nav-card-content {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  flex: 1;
 }
 
-.card-title {
-  font-weight: 600;
-  font-size: 1rem;
-  letter-spacing: 0.05em;
+.nav-card-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.nav-card-title {
+  font-family: "IBM Plex Sans", Helvetica, Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 300; /* matches your hero title */
+  letter-spacing: -0.2px;
+  color: #333333;
+}
+
+.nav-card-description {
+  font-family: "IBM Plex Mono", Menlo, Monaco, monospace;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: var(--card-title-color, inherit);
+  opacity: 0.65;
+  margin-top: 2px;
+  color: #333333;
 }
 
-.card-description {
-  font-size: 0.875rem;
-  color: var(--card-description-color, #6b6b6b);
+.nav-card-badge {
+  font-family: "IBM Plex Mono", Menlo, Monaco, monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.12);
+  color: #333333;
+  white-space: nowrap;
 }
 </style>
