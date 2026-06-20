@@ -45,7 +45,7 @@
             @click="navigateTo('/')"
           >
               <template #image>
-                <img decoding="async" sizes="25px" src="https://framerusercontent.com/images/25ozRUj8UvgIufO1O7xJ2ScoU.png" alt="Global Citizen Logo &quot;O&quot;" style="display: block; width: 100%; height: 100%; border-radius: inherit; object-position: center center; object-fit: cover;">
+                <!-- <img decoding="async" sizes="25px" src="https://framerusercontent.com/images/25ozRUj8UvgIufO1O7xJ2ScoU.png" alt="Global Citizen Logo &quot;O&quot;" style="display: block; width: 100%; height: 100%; border-radius: inherit; object-position: center center; object-fit: cover;"> -->
               </template>
           </Card>
           <Card
@@ -55,7 +55,7 @@
             @click="navigateTo('/about')"
           >
               <template #image>
-                <img decoding="async" sizes="40px" src="https://framerusercontent.com/images/4tR2kkcmNDwWLyCTL6UKBxtGk.png" alt="" style="display: block; width: 100%; height: 100%; border-radius: inherit; object-position: center center; object-fit: cover;">
+                <!-- <img decoding="async" sizes="40px" src="https://framerusercontent.com/images/4tR2kkcmNDwWLyCTL6UKBxtGk.png" alt="" style="display: block; width: 100%; height: 100%; border-radius: inherit; object-position: center center; object-fit: cover;"> -->
               </template>
           </Card>
         </nav>
