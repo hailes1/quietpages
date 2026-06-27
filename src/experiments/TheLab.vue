@@ -57,6 +57,14 @@
         >
           005 - State Transitions (continuity over jumps)</cv-button
         >
+        <cv-button
+          @click="navigateTo('/form-design')"
+          aria-label="button story"
+          default="sm"
+          size="sm"
+        >
+          007 - Form Design as Conversation</cv-button
+        >
 
         <!-- <cv-tag @remove="onRemove" label="Timing Studies and Motion" kind="blue" /> -->
         <!-- <cv-tag @remove="onRemove" label="Tone Adjustments and Negative Space" kind="green" /> -->

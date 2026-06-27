@@ -1,17 +1,19 @@
 <template>
-  <div
+  <button
+    type="button"
     class="nav-card"
     :class="{
       'dark-text': !isSwitchOn,
-      'light-text': isSwitchOn
+      'light-text': isSwitchOn,
+      'is-active': active
     }"
     @click="$emit('click')"
   >
-    <div class="nav-card-image">
-      <slot name="image" />
-    </div>
-
     <div class="nav-card-content">
+      <div v-if="eyebrow" class="nav-card-eyebrow">
+        {{ eyebrow }}
+      </div>
+
       <div class="nav-card-title" :class="titleClass">
         {{ title }}
       </div>
@@ -20,7 +22,9 @@
         {{ description }}
       </div>
     </div>
-  </div>
+
+    <div v-if="active" class="nav-card-indicator" aria-hidden="true"></div>
+  </button>
 </template>
 
 <script>
@@ -30,6 +34,14 @@ export default {
   props: {
     title: String,
     description: String,
+    eyebrow: {
+      type: String,
+      default: '',
+    },
+    active: {
+      type: Boolean,
+      default: false,
+    },
     isSwitchOn: {
       type: Boolean,
       default: false,
@@ -48,7 +60,7 @@ export default {
 
 .nav-card {
   background: transparent;
-  border: 1px solid #0f62fe;
+  border: 1px solid rgba(15, 98, 254, 0.45);
   border-radius: 12px;
   padding: 12px 14px;
   margin: 10px 12px;
@@ -56,13 +68,25 @@ export default {
   align-items: center;
   gap: 12px;
   cursor: pointer;
+  width: calc(100% - 24px);
+  text-align: left;
   transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.nav-card.is-active {
+  border-color: #0f62fe;
+  background: rgba(15, 98, 254, 0.08);
 }
 
 .nav-card:hover {
   transform: translateY(-2px);
-  border-color: #333333;
+  border-color: #0f62fe;
   background: rgba(0, 0, 0, 0.04);
+}
+
+.nav-card:focus-visible {
+  outline: 2px solid #0f62fe;
+  outline-offset: 2px;
 }
 
 .nav-card-icon {
@@ -83,6 +107,15 @@ export default {
   color: #333333;
 }
 
+.nav-card-eyebrow {
+  font-family: "IBM Plex Mono", Menlo, Monaco, monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0f62fe;
+  margin-bottom: 0.35rem;
+}
+
 .nav-card-title {
   font-family: "IBM Plex Sans", Helvetica, Arial, sans-serif;
   font-size: 0.95rem;
@@ -94,6 +127,14 @@ export default {
     color: #333333;
   }
 }
+
+  .nav-card-indicator {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 999px;
+    background: #0f62fe;
+    flex-shrink: 0;
+  }
 
 .nav-card-description {
   font-family: "IBM Plex Mono", Menlo, Monaco, monospace;

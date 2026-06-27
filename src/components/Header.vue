@@ -32,32 +32,47 @@
       <aside
         v-if="isSideNavOpen"
         class="side-panel"
+        aria-label="Experiment navigation"
         :class="{
           'light-panel': isSwitchOn,
           'dark-panel': !isSwitchOn
         }"
       >
+        <div class="panel-header">
+          <div>
+            <p class="panel-eyebrow">The Quiet Pages</p>
+            <h2 class="panel-title">{{ currentPanelTitle }}</h2>
+            <p class="panel-description">
+              Move between the sketchbook, the experiment index, and the current studies without losing context.
+            </p>
+          </div>
+
+          <button type="button" class="panel-close" @click="toggleSideNav">
+            Close
+          </button>
+        </div>
+
         <nav class="panel-nav">
-          <Card
-            title="HOME"
-            description="Go to the homepage"
-            :isSwitchOn="isSwitchOn"
-            @click="navigateTo('/')"
-          >
-              <template #image>
-                <!-- <img decoding="async" sizes="25px" src="https://framerusercontent.com/images/25ozRUj8UvgIufO1O7xJ2ScoU.png" alt="Global Citizen Logo &quot;O&quot;" style="display: block; width: 100%; height: 100%; border-radius: inherit; object-position: center center; object-fit: cover;"> -->
-              </template>
-          </Card>
-          <Card
-            title="ABOUT"
-            description="Learn more about us"
-            :isSwitchOn="isSwitchOn"
-            @click="navigateTo('/about')"
-          >
-              <template #image>
-                <!-- <img decoding="async" sizes="40px" src="https://framerusercontent.com/images/4tR2kkcmNDwWLyCTL6UKBxtGk.png" alt="" style="display: block; width: 100%; height: 100%; border-radius: inherit; object-position: center center; object-fit: cover;"> -->
-              </template>
-          </Card>
+          <div class="panel-tag-row">
+            <cv-tag label="portfolio" :style="tagStyle('#ff832b', '#161616')" />
+            <cv-tag label="experiments" :style="tagStyle('#f1c21b', '#161616')" />
+            <cv-tag label="interaction" :style="tagStyle('#42be65', '#161616')" />
+            <cv-tag label="systems" :style="tagStyle('#fa4d56', '#ffffff')" />
+          </div>
+
+          <section class="panel-section">
+            <div class="panel-section-heading">Quick links</div>
+            <Card
+              v-for="item in quickLinks"
+              :key="item.route"
+              :title="item.title"
+              :description="item.description"
+              :eyebrow="item.eyebrow"
+              :active="routeIsActive(item.route)"
+              :isSwitchOn="isSwitchOn"
+              @click="navigateTo(item.route)"
+            />
+          </section>
         </nav>
       </aside>
     </transition>
@@ -68,11 +83,7 @@
 import {
   CvHeader,
   CvHeaderGlobalAction,
-  CvSideNav,
-  CvSideNavItems,
-  CvSideNavLink,
-  CvSideNavMenu,
-  CvSideNavMenuItem,
+  CvTag
 } from '@carbon/vue'
 
 import Card from './Card.vue'
@@ -89,14 +100,10 @@ export default {
   components: {
     CvHeader,
     CvHeaderGlobalAction,
-    CvSideNav,
-    CvSideNavItems,
-    CvSideNavLink,
-    CvSideNavMenu,
-    CvSideNavMenuItem,
     Home20,
     Sun20,
     Sprout20,
+    CvTag,
     Card,
   },
 
@@ -129,9 +136,45 @@ export default {
           : '1px solid #393939',
       }
     },
+    quickLinks() {
+      return [
+        {
+          title: 'HOME',
+          description: 'The main thesis and entry point',
+          eyebrow: 'Start here',
+          route: '/',
+        },
+        {
+          title: 'THE LAB',
+          description: 'Browse the full experiment index',
+          eyebrow: 'Collection',
+          route: '/the-lab',
+        },
+        {
+          title: 'ABOUT',
+          description: 'Context, background, and current work',
+          eyebrow: 'Profile',
+          route: '/about',
+        },
+      ]
+    },
+    currentPanelTitle() {
+      const activeQuickLink = this.quickLinks.find((item) => this.routeIsActive(item.route))
+      if (activeQuickLink) {
+        return activeQuickLink.title
+      }
+
+      return 'Explore'
+    },
   },
 
   methods: {
+    tagStyle(backgroundColor, color) {
+      return {
+        backgroundColor,
+        color,
+      }
+    },
     onSwitch() {
       this.isSwitchOn = !this.isSwitchOn
       this.$emit('update:switch-state', this.isSwitchOn)
@@ -139,8 +182,11 @@ export default {
 
     toggleSideNav() {
       this.isSideNavOpen = !this.isSideNavOpen
-      console.log('Side Nav:', this.isSideNavOpen)
       this.$emit('update:left-rail-open', this.isSideNavOpen)
+    },
+
+    routeIsActive(route) {
+      return this.$route.path === route
     },
 
     navigateTo(route) {
@@ -148,6 +194,7 @@ export default {
 
       // close nav after navigation
       this.isSideNavOpen = false
+      this.$emit('update:left-rail-open', this.isSideNavOpen)
     },
   },
 }
@@ -171,6 +218,7 @@ export default {
 
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 
   box-shadow: -6px 0 16px rgba(0, 0, 0, 0.15);
 }
@@ -188,28 +236,81 @@ export default {
 }
 
 .panel-header {
-  padding: 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 1px solid rgba(127, 127, 127, 0.2);
+}
+
+.panel-eyebrow {
+  margin: 0 0 0.4rem;
+  font-family: 'IBM Plex Mono', Menlo, Monaco, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0f62fe;
+}
+
+.panel-title {
+  margin: 0;
+  font-family: 'IBM Plex Sans', Helvetica, Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.panel-description {
+  margin: 0.6rem 0 0;
+  max-width: 22rem;
+  font-family: 'IBM Plex Mono', Menlo, Monaco, monospace;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  opacity: 0.82;
+}
+
+.panel-close {
+  align-self: flex-start;
+  border: 1px solid rgba(127, 127, 127, 0.3);
+  background: transparent;
+  color: inherit;
+  font-family: 'IBM Plex Mono', Menlo, Monaco, monospace;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.65rem 0.85rem;
+  cursor: pointer;
+}
+
+.panel-close:hover,
+.panel-close:focus-visible {
+  border-color: #0f62fe;
+  outline: none;
 }
 
 .panel-nav {
   display: flex;
   flex-direction: column;
+  padding-bottom: 1.25rem;
 }
 
-.panel-nav button {
-  padding: 1rem 1.5rem;
-  border: none;
-  background: transparent;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
-  transition: background .2s;
+.panel-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  padding: 1rem 1.5rem 0.5rem;
 }
 
-.panel-nav button:hover {
-  background: rgba(127,127,127,.15);
+.panel-section {
+  padding-top: 0.5rem;
+}
+
+.panel-section-heading {
+  padding: 0.5rem 1.5rem;
+  font-family: 'IBM Plex Mono', Menlo, Monaco, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.72;
 }
 
 .slide-right-enter-active,

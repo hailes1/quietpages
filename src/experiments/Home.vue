@@ -10,10 +10,11 @@
         </div>
 
         <h1 class="main-title" :class="titleClass">
-          Building for how people actually think.
+          A sketchbook for things not yet
+          <span class="title-accent">ready to be loud.</span>
         </h1>
 
-        <div class="cta-container">
+        <!-- <div class="cta-container">
           <cv-button
             @click="navigateTo('/the-lab')"
             size="extra-large"
@@ -29,7 +30,7 @@
           >
             002 - About Me
           </cv-button>
-        </div>
+        </div> -->
 
       </div>
     </div>
@@ -119,6 +120,10 @@ export default {
   &.active {
     color: #333333;
   }
+}
+
+.title-accent {
+  color: #0f62fe;
 }
 
 .cta-container {

@@ -6,6 +6,7 @@ import ExperimentScrollComponent from '../experiments/ExperimentScroll.vue'
 // import ExperimentShadowsComponent from '../experiments/ExperimentShadows.vue'
 import ExperimentColorsComponent from '../experiments/ExperimentColors.vue'
 import ExperimentingTransitionsComponent from '../experiments/ExperimentingTransitions.vue'
+import ExperimentFormsComponent from '../experiments/ExperimentForms.vue'
 import ExperimentTimelineComponent from '../experiments/ExperimentTimeline.vue'
 import TheLabComponent from '../experiments/TheLab.vue'
 
@@ -49,6 +50,11 @@ const routes = [
     path: '/state-transitions',
     alias: ['/experiment-transitions', '/experimenting-transitions'],
     component: ExperimentingTransitionsComponent,
+    props: true,
+  },
+  {
+    path: '/form-design',
+    component: ExperimentFormsComponent,
     props: true,
   },
   {
