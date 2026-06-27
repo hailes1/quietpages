@@ -2,7 +2,6 @@
   <div class="main">
     <div class="main-content">
 
-      <!-- LEFT -->
       <div class="main-left">
 
         <div class="header-subtitle" :class="titleClass">
@@ -13,24 +12,6 @@
           A sketchbook for things not yet
           <span class="title-accent">ready to be loud.</span>
         </h1>
-
-        <!-- <div class="cta-container">
-          <cv-button
-            @click="navigateTo('/the-lab')"
-            size="extra-large"
-            class="button"
-          >
-            001 - Lab
-          </cv-button>
-
-          <cv-button
-            @click="navigateTo('/timeline')"
-            size="extra-large"
-            class="button"
-          >
-            002 - About Me
-          </cv-button>
-        </div> -->
 
       </div>
     </div>
@@ -78,7 +59,6 @@ export default {
   padding: 0 2rem;
 }
 
-/* GRID LAYOUT */
 .main-content {
   display: grid;
   grid-template-columns: minmax(700px, 1.9fr) minmax(320px, 0.8fr);
@@ -124,52 +104,5 @@ export default {
 
 .title-accent {
   color: #0f62fe;
-}
-
-.cta-container {
-  display: flex;
-  gap: 1.5rem;
-  margin-top: 2.5rem;
-  flex-wrap: wrap;
-}
-
-.main-right {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.button {
-  transition: all 0.2s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
-  }
-}
-
-::v-deep .button .cds--btn {
-  letter-spacing: 0.5px;
-  padding: 0.75rem 1.25rem;
-}
-
-@media (max-width: 900px) {
-  .main-content {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-
-  .main-left {
-    max-width: 100%;
-  }
-
-  .main-right {
-    justify-content: center;
-  }
-
-  .main-title {
-    font-size: 2.5rem;
-    max-width: 100%;
-  }
 }
 </style>

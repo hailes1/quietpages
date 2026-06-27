@@ -40,25 +40,25 @@
       >
         <div class="panel-header">
           <div>
-            <p class="panel-eyebrow">The Quiet Pages</p>
+            <cv-breadcrumb class="panel-eyebrow">The Quiet Pages</cv-breadcrumb>
             <h2 class="panel-title">{{ currentPanelTitle }}</h2>
-            <p class="panel-description">
+            <cv-breadcrumb class="panel-description">
               Move between the sketchbook, the experiment index, and the current studies without losing context.
-            </p>
+            </cv-breadcrumb>
           </div>
 
-          <button type="button" class="panel-close" @click="toggleSideNav">
+          <cv-button type="button" class="panel-close" @click="toggleSideNav">
             Close
-          </button>
+          </cv-button>
         </div>
 
         <nav class="panel-nav">
-          <div class="panel-tag-row">
+          <!-- <div class="panel-tag-row">
             <cv-tag label="portfolio" :style="tagStyle('#ff832b', '#161616')" />
             <cv-tag label="experiments" :style="tagStyle('#f1c21b', '#161616')" />
             <cv-tag label="interaction" :style="tagStyle('#42be65', '#161616')" />
             <cv-tag label="systems" :style="tagStyle('#fa4d56', '#ffffff')" />
-          </div>
+          </div> -->
 
           <section class="panel-section">
             <div class="panel-section-heading">Quick links</div>
@@ -83,7 +83,9 @@
 import {
   CvHeader,
   CvHeaderGlobalAction,
-  CvTag
+  CvTag,
+  CvBreadcrumb,
+  CvButton
 } from '@carbon/vue'
 
 import Card from './Card.vue'
@@ -104,6 +106,8 @@ export default {
     Sun20,
     Sprout20,
     CvTag,
+    CvBreadcrumb,
+    CvButton,
     Card,
   },
 
