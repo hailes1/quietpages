@@ -1,61 +1,6 @@
 <template>
   <section class="about" :class="themeClass">
     <div class="about-grid">
-      <section class="about-section about-section--contact" aria-labelledby="about-contact-title">
-        <h2 id="about-contact-title" class="about-label">Contact</h2>
-        <ul class="about-list about-list--contact">
-          <li v-for="c in contact" :key="c.href">
-            <a :href="c.href" target="_blank" rel="noopener noreferrer">{{ c.label }}</a>
-          </li>
-        </ul>
-        <cv-breadcrumb class="about-location">{{ location }}</cv-breadcrumb>
-      </section>
-
-      <section class="about-section about-section--experience" aria-labelledby="about-experience-title">
-        <h2 id="about-experience-title" class="about-label">Experience</h2>
-        <div class="about-entry-list">
-          <article v-for="item in experiences" :key="item.id" class="about-entry">
-            <cv-breadcrumb class="about-entry-range">{{ item.range }}</cv-breadcrumb>
-            <cv-breadcrumb class="about-entry-title">{{ item.title }} · {{ item.company }}</cv-breadcrumb>
-            <cv-breadcrumb class="about-entry-impact">{{ item.impact }}</cv-breadcrumb>
-          </article>
-        </div>
-      </section>
-
-      <section class="about-section about-section--education" aria-labelledby="about-education-title">
-        <h2 id="about-education-title" class="about-label">Education</h2>
-        <div class="about-entry-list about-entry-list--compact">
-          <article v-for="item in education" :key="item.id" class="about-entry">
-            <cv-breadcrumb class="about-entry-range">{{ item.range }}</cv-breadcrumb>
-            <cv-breadcrumb class="about-entry-title">{{ item.degree }}</cv-breadcrumb>
-            <cv-breadcrumb class="about-entry-impact">{{ item.school }}</cv-breadcrumb>
-          </article>
-        </div>
-      </section>
-
-      <section class="about-section about-section--research" aria-labelledby="about-research-title">
-        <h2 id="about-research-title" class="about-label">Research</h2>
-        <div class="about-research-list">
-          <article v-for="item in research" :key="item.id" class="about-research-entry">
-            <div class="about-research-marker" aria-hidden="true">
-              <span
-                v-for="(t, i) in item.markerTiles"
-                :key="i"
-                class="about-tile"
-                :class="`about-tile--${t}`"
-                :style="{ width: tileWidth(t) }"
-              ></span>
-            </div>
-            <div class="about-research-body">
-              <cv-breadcrumb class="about-entry-range">{{ item.range }}</cv-breadcrumb>
-              <cv-breadcrumb class="about-research-title">{{ item.title }}</cv-breadcrumb>
-              <cv-breadcrumb class="about-research-place">{{ item.place }}</cv-breadcrumb>
-              <cv-breadcrumb class="about-research-description">{{ item.description }}</cv-breadcrumb>
-            </div>
-          </article>
-        </div>
-      </section>
-
       <section class="about-section about-section--capabilities" aria-labelledby="about-capabilities-title">
         <h2 id="about-capabilities-title" class="about-label">Capabilities</h2>
         <div class="about-capability-grid">
@@ -137,55 +82,6 @@ export default {
   },
   data() {
     return {
-      location: 'Chicago, IL',
-      experiences: [
-        {
-          id: 1,
-          range: 'JAN 2025 – PRESENT',
-          title: 'Software Engineer',
-          company: 'Morningstar',
-          impact: 'Python/LangChain agent framework and MCP tool orchestration for Morningstar Direct AI Assistant.',
-        },
-        {
-          id: 2,
-          range: 'JUN 2022 – DEC 2024',
-          title: 'Associate Software Engineer',
-          company: 'Morningstar',
-          impact: 'Java/Spring Boot services for PDF reporting and Vue.js tooling for conversational AI.',
-        },
-      ],
-      education: [
-        {
-          id: 1,
-          range: '2018 – 2022',
-          degree: 'BA, Computer Science and Mathematics',
-          school: 'St. Olaf College',
-        },
-        {
-          id: 2,
-          range: '2025 – PRESENT',
-          degree: 'MS, Software Engineering',
-          school: 'DePaul University',
-        },
-      ],
-      research: [
-        {
-          id: 1,
-          range: 'FEB 2022 – MAY 2022',
-          title: 'Colored board tilings for q,p-Jacobsthal identities',
-          place: 'St. Olaf College · advised by Prof. Kristina Garrett',
-          description: 'Colored board tilings used to prove q,p-Jacobsthal identities.',
-          markerTiles: ['red', 'green'],
-        },
-        {
-          id: 2,
-          range: 'JUN 2020 – AUG 2020',
-          title: 'Connectivity under physical interference in low-cost multi-robot networks',
-          place: 'St. Olaf CURI Program',
-          description: 'Signal-range experiments for low-cost multi-robot networks.',
-          markerTiles: ['square'],
-        },
-      ],
       languages: [
         'Python',
         'JavaScript / Vue.js',
