@@ -19,11 +19,18 @@
         </cv-header-global-action>
 
         <cv-header-global-action
-          aria-label="Menu"
-          @click="toggleSideNav"
+          aria-label="The Lab"
+          @click="navigateTo('/lab')"
           :style="headerItemStyle"
         >
           <Sprout20 />
+        </cv-header-global-action>
+        <cv-header-global-action
+          aria-label="Open Side Navigation"
+          @click="navigateTo('/about')"
+          :style="headerItemStyle"
+        >
+          <HeatMap20 />
         </cv-header-global-action>
       </template>
     </cv-header>
@@ -94,6 +101,7 @@ import {
   Home20,
   Sun20,
   Sprout20,
+  HeatMap20
 } from '@carbon/icons-vue'
 
 export default {
@@ -105,6 +113,7 @@ export default {
     Home20,
     Sun20,
     Sprout20,
+    HeatMap20,
     CvTag,
     CvBreadcrumb,
     CvButton,
@@ -153,12 +162,6 @@ export default {
           description: 'Browse the full experiment index',
           eyebrow: 'Collection',
           route: '/the-lab',
-        },
-        {
-          title: 'ABOUT',
-          description: 'Context, background, and current work',
-          eyebrow: 'Profile',
-          route: '/about',
         },
       ]
     },

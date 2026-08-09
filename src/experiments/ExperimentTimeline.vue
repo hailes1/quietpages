@@ -1,78 +1,111 @@
 <template>
   <section class="about" :class="themeClass">
     <div class="about-grid">
-
-      <!-- EXPERIENCE -->
-      <div class="about-section about-section--experience">
-        <p class="about-label">EXPERIENCE</p>
-        <div class="about-entry-list">
-          <div v-for="item in experiences" :key="item.id" class="about-entry">
-            <p class="about-entry-range">{{ item.range }}</p>
-            <p class="about-entry-title">↳ {{ item.title }} at {{ item.company }}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- EDUCATION -->
-      <div class="about-section about-section--education">
-        <p class="about-label">EDUCATION</p>
-        <div class="about-entry-list">
-          <div v-for="item in education" :key="item.id" class="about-entry">
-            <p class="about-entry-range">{{ item.range }}</p>
-            <p class="about-entry-title">↳ {{ item.degree }} at {{ item.school }}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- languages -->
-      <div class="about-section about-section--languages">
-        <p class="about-label">languages</p>
-        <ul class="about-list">
-          <li v-for="skill in languages" :key="skill">+ {{ skill }}</li>
-        </ul>
-      </div>
-
-      <!-- TOOLS -->
-      <div class="about-section about-section--tools">
-        <p class="about-label">TOOLS</p>
-        <ul class="about-list">
-          <li v-for="tool in tools" :key="tool">+ {{ tool }}</li>
-        </ul>
-      </div>
-
-      <!-- CONTACT -->
-      <div class="about-section about-section--contact">
-        <p class="about-label">CONTACT</p>
+      <section class="about-section about-section--contact" aria-labelledby="about-contact-title">
+        <h2 id="about-contact-title" class="about-label">Contact</h2>
         <ul class="about-list about-list--contact">
           <li v-for="c in contact" :key="c.href">
-            <a :href="c.href" target="_blank" rel="noopener noreferrer">↳ {{ c.label }}</a>
+            <a :href="c.href" target="_blank" rel="noopener noreferrer">{{ c.label }}</a>
           </li>
         </ul>
-      </div>
+        <cv-breadcrumb class="about-location">{{ location }}</cv-breadcrumb>
+      </section>
 
-      <!-- CURRENT MEDIA ROTATION -->
-      <div class="about-section about-section--media">
-        <p class="about-label">CURRENT MEDIA ROTATION</p>
+      <section class="about-section about-section--experience" aria-labelledby="about-experience-title">
+        <h2 id="about-experience-title" class="about-label">Experience</h2>
+        <div class="about-entry-list">
+          <article v-for="item in experiences" :key="item.id" class="about-entry">
+            <cv-breadcrumb class="about-entry-range">{{ item.range }}</cv-breadcrumb>
+            <cv-breadcrumb class="about-entry-title">{{ item.title }} · {{ item.company }}</cv-breadcrumb>
+            <cv-breadcrumb class="about-entry-impact">{{ item.impact }}</cv-breadcrumb>
+          </article>
+        </div>
+      </section>
 
-        <p class="about-media-type">MUSIC</p>
+      <section class="about-section about-section--education" aria-labelledby="about-education-title">
+        <h2 id="about-education-title" class="about-label">Education</h2>
+        <div class="about-entry-list about-entry-list--compact">
+          <article v-for="item in education" :key="item.id" class="about-entry">
+            <cv-breadcrumb class="about-entry-range">{{ item.range }}</cv-breadcrumb>
+            <cv-breadcrumb class="about-entry-title">{{ item.degree }}</cv-breadcrumb>
+            <cv-breadcrumb class="about-entry-impact">{{ item.school }}</cv-breadcrumb>
+          </article>
+        </div>
+      </section>
+
+      <section class="about-section about-section--research" aria-labelledby="about-research-title">
+        <h2 id="about-research-title" class="about-label">Research</h2>
+        <div class="about-research-list">
+          <article v-for="item in research" :key="item.id" class="about-research-entry">
+            <div class="about-research-marker" aria-hidden="true">
+              <span
+                v-for="(t, i) in item.markerTiles"
+                :key="i"
+                class="about-tile"
+                :class="`about-tile--${t}`"
+                :style="{ width: tileWidth(t) }"
+              ></span>
+            </div>
+            <div class="about-research-body">
+              <cv-breadcrumb class="about-entry-range">{{ item.range }}</cv-breadcrumb>
+              <cv-breadcrumb class="about-research-title">{{ item.title }}</cv-breadcrumb>
+              <cv-breadcrumb class="about-research-place">{{ item.place }}</cv-breadcrumb>
+              <cv-breadcrumb class="about-research-description">{{ item.description }}</cv-breadcrumb>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="about-section about-section--capabilities" aria-labelledby="about-capabilities-title">
+        <h2 id="about-capabilities-title" class="about-label">Capabilities</h2>
+        <div class="about-capability-grid">
+          <div>
+            <cv-breadcrumb class="about-sub-label">Languages & Platforms</cv-breadcrumb>
+            <ul class="about-list">
+              <li v-for="skill in languages" :key="skill">
+                <span class="about-tile about-tile--square about-bullet" aria-hidden="true"></span>{{ skill }}
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <cv-breadcrumb class="about-sub-label">Tools</cv-breadcrumb>
+            <ul class="about-list">
+              <li v-for="tool in tools" :key="tool">
+                <span class="about-tile about-tile--square about-bullet" aria-hidden="true"></span>{{ tool }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section about-section--media" aria-labelledby="about-media-title">
+        <h2 id="about-media-title" class="about-label">Current media rotation</h2>
+
+        <cv-breadcrumb class="about-media-type">Music</cv-breadcrumb>
         <ul class="about-list">
-          <li v-for="track in media.music" :key="track">↳ {{ track }}</li>
+          <li v-for="track in media.music" :key="track">
+            <span class="about-tile about-tile--square about-bullet" aria-hidden="true"></span>{{ track }}
+          </li>
         </ul>
 
-        <p class="about-media-type">PODCASTS</p>
+        <cv-breadcrumb class="about-media-type">Podcasts</cv-breadcrumb>
         <ul class="about-list">
-          <li v-for="pod in media.podcasts" :key="pod">↳ {{ pod }}</li>
+          <li v-for="pod in media.podcasts" :key="pod">
+            <span class="about-tile about-tile--square about-bullet" aria-hidden="true"></span>{{ pod }}
+          </li>
         </ul>
 
-        <p class="about-media-type">TELEVISION</p>
+        <cv-breadcrumb class="about-media-type">Television</cv-breadcrumb>
         <ul class="about-list">
-          <li v-for="show in media.television" :key="show">↳ {{ show }}</li>
+          <li v-for="show in media.television" :key="show">
+            <span class="about-tile about-tile--square about-bullet" aria-hidden="true"></span>{{ show }}
+          </li>
         </ul>
-      </div>
+      </section>
 
-      <!-- PLAYLIST -->
-      <div class="about-section about-section--playlist">
-        <p class="about-label">MY HEADS-DOWN PLAYLIST</p>
+      <section class="about-section about-section--playlist" aria-labelledby="about-playlist-title">
+        <h2 id="about-playlist-title" class="about-label">Heads-down playlist</h2>
         <div class="about-playlist">
           <div v-for="(track, i) in playlist" :key="track.title" class="about-playlist-row">
             <span class="about-playlist-num">{{ i + 1 }}</span>
@@ -83,21 +116,19 @@
             </div>
           </div>
         </div>
-      </div>
-
+      </section>
     </div>
   </section>
-  <!-- <section>
-    <div>
-      <p>ExperimentTimeline.vue</p>
-
-    </div>
-  </section> -->
 </template>
 
 <script>
+import { CvBreadcrumb } from '@carbon/vue'
+
 export default {
-  name: 'ExperimentAbout',
+  name: 'AboutSection',
+  components: {
+    CvBreadcrumb,
+  },
   props: {
     isSwitchOn: {
       type: Boolean,
@@ -106,35 +137,73 @@ export default {
   },
   data() {
     return {
+      location: 'Chicago, IL',
       experiences: [
-        { id: 1, range: 'JANUARY 2025 - PRESENT', title: 'Software Engineer', company: 'Morningstar Inc. ' },
-        { id: 2, range: 'JUNE 2022 - DECEMBER 2024', title: 'Associate Software Engineer', company: 'Morningstar Inc.' },
-        { id: 3, range: 'FEBRUARY 2022 - MAY 2022', title: 'Research Assistant', company: 'St. Olaf College' },
-        { id: 4, range: 'MAY 2017 - MAY 2018', title: 'SI Leader - Teaching Assistant', company: 'St. Olaf College' },
-        { id: 5, range: 'JUNE 2020 - AUGUST 2020', title: 'Research Assistant', company: 'St. Olaf College' },
+        {
+          id: 1,
+          range: 'JAN 2025 – PRESENT',
+          title: 'Software Engineer',
+          company: 'Morningstar',
+          impact: 'Python/LangChain agent framework and MCP tool orchestration for Morningstar Direct AI Assistant.',
+        },
+        {
+          id: 2,
+          range: 'JUN 2022 – DEC 2024',
+          title: 'Associate Software Engineer',
+          company: 'Morningstar',
+          impact: 'Java/Spring Boot services for PDF reporting and Vue.js tooling for conversational AI.',
+        },
       ],
       education: [
-        { id: 1, range: '2018 - 2022', degree: 'BA| Computer Science and Mathematics', school: 'St. Olaf College' },
-        { id: 2, range: '2025 - PRESENT', degree: 'MS| Software Engineering', school: 'DePaul University'},
+        {
+          id: 1,
+          range: '2018 – 2022',
+          degree: 'BA, Computer Science and Mathematics',
+          school: 'St. Olaf College',
+        },
+        {
+          id: 2,
+          range: '2025 – PRESENT',
+          degree: 'MS, Software Engineering',
+          school: 'DePaul University',
+        },
+      ],
+      research: [
+        {
+          id: 1,
+          range: 'FEB 2022 – MAY 2022',
+          title: 'Colored board tilings for q,p-Jacobsthal identities',
+          place: 'St. Olaf College · advised by Prof. Kristina Garrett',
+          description: 'Colored board tilings used to prove q,p-Jacobsthal identities.',
+          markerTiles: ['red', 'green'],
+        },
+        {
+          id: 2,
+          range: 'JUN 2020 – AUG 2020',
+          title: 'Connectivity under physical interference in low-cost multi-robot networks',
+          place: 'St. Olaf CURI Program',
+          description: 'Signal-range experiments for low-cost multi-robot networks.',
+          markerTiles: ['square'],
+        },
       ],
       languages: [
         'Python',
-        'C++',
-        'C',
-        'Java - Spring Boot',
-        'JavaScript - Vue.js',
-        'R',
-        'Mathematica',
+        'JavaScript / Vue.js',
+        'Java / Spring Boot',
+        'HTML / CSS',
+        'PostgreSQL',
+        'AWS (S3, SQS, SNS, CloudFront, CodeDeploy)',
       ],
-      tools: ['Figma', 'Docker', 'Git', 'PostgreSQL', 'Harness', 'AWS', 'MongoDB', 'Jenkins', 'SonarQube', 'Splunk', 'Jira'],
+      tools: ['Figma', 'Notion', 'Jira', 'Bitbucket', 'Miro', 'GitHub', 'Harness', 'Jenkins', 'Splunk', 'Google Analytics'],
       contact: [
-        { label: 'Dag.Haileslassie@gmail.com', href: 'mailto:dag.haileslassie@gmail.com' },
-        { label: 'LINKEDIN.COM/IN/DAGMAWEAHAILESLASSIE', href: 'https://www.linkedin.com/in/dagmawe-amare-haileslassie-498b67175/' },
+        { label: 'dag.haileslassie@gmail.com', href: 'mailto:dag.haileslassie@gmail.com' },
+        { label: 'github.com/hailes1', href: 'https://github.com/hailes1' },
+        { label: 'linkedin.com/in/dagmawe-amare-haileslassie', href: 'https://www.linkedin.com/in/dagmawe-amare-haileslassie-498b67175/' },
       ],
       media: {
-        music: ['No One Noticed by The Marias', 'Love Songs by Claire', 'Coincidence by Sabrina Carpenter'],
-        podcasts: ['Las Culturistas', 'There Are No Girls On The Internet'],
-        television: ['Pls recommend!'],
+        music: ['No One Noticed by The Marias', 'Love Songs by Claire'],
+        podcasts: ['Las Culturistas'],
+        television: ['Severance'],
       },
       playlist: [
         { title: 'Bridge', artist: 'Marc Rebillet', color: '#6b7c5e' },
@@ -148,94 +217,248 @@ export default {
       return this.isSwitchOn ? 'light' : ''
     },
   },
+  methods: {
+    tileWidth(type) {
+      return type === 'square' ? '26px' : '58px'
+    },
+  },
 }
 </script>
 
 <style scoped lang="scss">
 .about {
-  --text-primary: #f4f4f4;
-  --text-secondary: #a8b0b7;
-  --text-tertiary: #7c8791;
-  --text-link: #a8b0b7;
-  --border-color: #393939;
-  --type-mono: 'IBM Plex Mono', 'Menlo', 'DejaVu Sans Mono', 'Courier', monospace;
-  --type-sans: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  // Palette: grounded in the board-tiling motif from the Jacobsthal research —
+  // a neutral "square" tone plus the red/green domino pair, on a sage-tinted
+  // paper rather than a stock warm-cream background.
+  --text-primary: #f0ede4;
+  --text-secondary: #a7aca2;
+  --text-tertiary: #74796f;
+  --text-link: #d7cfae;
+  --surface-subtle: rgba(240, 237, 228, 0.05);
+  --border-color: #2b302b;
+  --accent-square: #c9c2ac;
+  --accent-red: #b1594a;
+  --accent-green: #6a8a6a;
 
-  width: 100%;
+  --type-display: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --type-body: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --type-mono: 'IBM Plex Mono', 'Menlo', 'DejaVu Sans Mono', monospace;
+
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
   min-height: 100vh;
   box-sizing: border-box;
-  padding: 48px 0 0;
+  background: var(--bg);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 56px 0 0;
 }
 
 .about.light {
-  --text-primary: #161616;
-  --text-secondary: #3e434b;
-  --text-tertiary: #697077;
-  --text-link: #3e434b;
-  --border-color: #c6c6c6;
+  --bg: #edefea;
+  --text-primary: #171b16;
+  --text-secondary: #454c42;
+  --text-tertiary: #6b7266;
+  --text-link: #3f4a37;
+  --surface-subtle: rgba(23, 27, 22, 0.045);
+  --border-color: #cdd0c4;
+  --accent-square: #8a8262;
+  --accent-red: #9c4a3c;
+  --accent-green: #4c6b52;
 }
+
+/* ---------- Tiling motif ---------- */
+
+.about-tile {
+  display: inline-block;
+  height: 22px;
+  border-radius: 3px;
+}
+
+.about-tile--square {
+  background: var(--accent-square);
+}
+
+.about-tile--red {
+  background: var(--accent-red);
+}
+
+.about-tile--green {
+  background: var(--accent-green);
+}
+
+.about-eyebrow-tile {
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+
+.about-bullet {
+  width: 6px;
+  height: 6px;
+  margin-right: 10px;
+  border-radius: 1px;
+  vertical-align: middle;
+  opacity: 0.85;
+}
+
+/* ---------- Grid ---------- */
 
 .about-grid {
   display: grid;
-  // grid-template-columns: minmax(400px, 1.9fr) minmax(600px, 1.9fr);
-  grid-template-rows: auto auto auto;
-  width: 100%;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  border-top: 1px solid var(--border-color);
 }
 
-.about-section--experience { grid-column: 1 / 3; grid-row: 1; }
-.about-section--education  { grid-column: 3 / 5; grid-row: 1; }
-.about-section--languages   { grid-column: 1 / 3; grid-row: 2; }
-.about-section--tools       { grid-column: 3 / 5; grid-row: 2; }
-.about-section--contact     { grid-column: 1 / 5; grid-row: 3; }
-.about-section--media       { grid-column: 1 / 3; grid-row: 4; }
-.about-section--playlist    { grid-column: 3 / 5; grid-row: 4; }
+.about-section--contact { grid-column: 1 / 5; }
+.about-section--experience { grid-column: 5 / 13; }
+.about-section--education { grid-column: 1 / 5; }
+.about-section--research { grid-column: 1 / 13; }
+.about-section--capabilities { grid-column: 1 / 13; }
+.about-section--media { grid-column: 1 / 7; }
+.about-section--playlist { grid-column: 7 / 13; }
 
 .about-section {
-  padding: 32px 40px;
+  padding: 28px 40px;
   border-bottom: 1px solid var(--border-color);
   border-right: 1px solid var(--border-color);
   box-sizing: border-box;
 }
 
-.about-section--education,
-.about-section--tools,
 .about-section--contact,
+.about-section--education,
+.about-section--research,
+.about-section--capabilities,
 .about-section--playlist {
   border-right: none;
 }
 
 .about-label {
-  margin: 0 0 20px;
+  margin: 0 0 18px;
   font-family: var(--type-mono);
   font-size: 0.6875rem;
-  font-weight: 400;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   line-height: 1.3;
   color: var(--text-tertiary);
   text-transform: uppercase;
 }
 
+.about-location {
+  margin: 14px 0 0;
+  font-family: var(--type-mono);
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+
+/* ---------- Entries ---------- */
+
 .about-entry-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
+}
+
+.about-entry-list--compact {
+  gap: 14px;
 }
 
 .about-entry-range {
   margin: 0 0 4px;
   font-family: var(--type-mono);
-  font-size: 0.6875rem;
-  line-height: 1.3;
+  font-size: 0.62rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
   color: var(--text-tertiary);
 }
 
 .about-entry-title {
   margin: 0;
-  font-family: var(--type-mono);
-  font-size: 0.75rem;
-  line-height: 1.5;
+  font-family: var(--type-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.35;
   color: var(--text-primary);
 }
+
+.about-entry-impact {
+  margin: 0.4rem 0 0;
+  max-width: 42rem;
+  font-family: var(--type-body);
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+/* ---------- Research ---------- */
+
+.about-research-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.about-research-entry {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 16px;
+}
+
+.about-research-marker {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 4px;
+}
+
+.about-research-title {
+  margin: 0;
+  font-family: var(--type-display);
+  font-size: 0.96rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.about-research-place {
+  margin: 0.3rem 0 0;
+  font-family: var(--type-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+}
+
+.about-research-description {
+  margin: 0.6rem 0 0;
+  max-width: 46rem;
+  font-family: var(--type-body);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* ---------- Capabilities ---------- */
+
+.about-capability-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.about-sub-label {
+  margin: 0 0 0.75rem;
+  font-family: var(--type-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* ---------- Lists ---------- */
 
 .about-list {
   list-style: none;
@@ -243,11 +466,13 @@ export default {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 
   li {
+    display: flex;
+    align-items: center;
     font-family: var(--type-mono);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     line-height: 1.5;
     color: var(--text-primary);
   }
@@ -257,19 +482,27 @@ export default {
   color: var(--text-link);
   text-decoration: none;
   font-family: var(--type-mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
 
   &:hover {
     text-decoration: underline;
   }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent-green);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
 }
 
-/* Media sub-type labels */
+/* ---------- Media / playlist ---------- */
+
 .about-media-type {
   margin: 20px 0 8px;
   font-family: var(--type-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--text-tertiary);
 
   &:first-of-type {
@@ -277,7 +510,6 @@ export default {
   }
 }
 
-/* Playlist */
 .about-playlist {
   display: flex;
   flex-direction: column;
@@ -293,75 +525,97 @@ export default {
 
 .about-playlist-num {
   font-family: var(--type-mono);
-  font-size: 0.6875rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--text-tertiary);
 }
 
 .about-playlist-art {
   width: 40px;
   height: 40px;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 .about-playlist-title {
-  font-family: var(--type-sans);
-  font-size: 0.8125rem;
-  font-weight: 500;
+  font-family: var(--type-display);
+  font-size: 0.78rem;
+  font-weight: 600;
   color: var(--text-primary);
 }
 
 .about-playlist-artist {
   font-family: var(--type-mono);
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   color: var(--text-tertiary);
 }
 
-/* Responsive: stack to 2 cols on tablet, 1 on mobile */
-@media (max-width: 900px) {
+/* ---------- Responsive ---------- */
+
+@media (max-width: 980px) {
   .about-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .about-section--experience { grid-column: 1 / 2; grid-row: 1; }
-  .about-section--education   { grid-column: 2 / 3; grid-row: 1; }
-  .about-section--languages      { grid-column: 1 / 2; grid-row: 2; }
-  .about-section--tools       { grid-column: 2 / 3; grid-row: 2; }
-  .about-section--contact     { grid-column: 1 / 3; grid-row: 3; }
-  .about-section--media       { grid-column: 1 / 2; grid-row: 4; }
-  .about-section--playlist    { grid-column: 2 / 3; grid-row: 4; }
+  .about-section--contact { grid-column: 1 / 3; grid-row: 1; }
+  .about-section--experience { grid-column: 1 / 2; grid-row: 2; }
+  .about-section--education { grid-column: 2 / 3; grid-row: 2; }
+  .about-section--research { grid-column: 1 / 3; grid-row: 3; }
+  .about-section--capabilities { grid-column: 1 / 3; grid-row: 4; }
+  .about-section--media { grid-column: 1 / 2; grid-row: 5; }
+  .about-section--playlist { grid-column: 2 / 3; grid-row: 5; }
 
+  .about-section {
+    padding: 28px;
+  }
+
+  .about-section--contact,
   .about-section--education,
-  .about-section--tools,
-  .about-section--playlist {
+  .about-section--research,
+  .about-section--playlist,
+  .about-section--capabilities {
     border-right: none;
   }
 
   .about-section--experience,
-  .about-section--languages,
   .about-section--media {
     border-right: 1px solid var(--border-color);
   }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 640px) {
   .about-grid {
     grid-template-columns: 1fr;
   }
 
   .about-section {
     border-right: none;
-    padding: 24px 22px;
+    padding: 24px 20px;
   }
 
+  .about-section--intro,
+  .about-section--contact,
   .about-section--experience,
   .about-section--education,
-  .about-section--languages,
-  .about-section--tools,
-  .about-section--contact,
+  .about-section--research,
+  .about-section--capabilities,
   .about-section--media,
   .about-section--playlist {
     grid-column: 1;
     grid-row: auto;
+  }
+
+  .about-research-entry {
+    grid-template-columns: 1fr;
+  }
+
+  .about-research-marker {
+    flex-direction: row;
+  }
+
+  .about-capability-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
   }
 }
 </style>

@@ -18,6 +18,7 @@ const routes = [
   },
   {
     path: '/the-lab',
+    alias: ['/lab'],
     component: TheLabComponent,
     props: true,
   },
@@ -36,11 +37,6 @@ const routes = [
     component: ExperimentScrollComponent,
     props: true,
   },
-  // {
-  //   path: '/experiment-shadows',
-  //   component: ExperimentShadowsComponent,
-  //   props: true,
-  // },
   {
     path: '/color-palette',
     component: ExperimentColorsComponent,
